@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>auto downloader</title>
+</head>
+<body>
+<script>
+  // get query param
+  const params = new URLSearchParams(window.location.search);
+  const fileUrl = params.get("url");
+
+  if (fileUrl) {
+    try {
+      // optional: basic validation
+      const parsed = new URL(fileUrl);
+
+      // create a temporary link
+      const a = document.createElement("a");
+      a.href = parsed.href;
+
+      // force download instead of opening
+      a.download = "";
+
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (e) {
+      document.body.innerText = "invalid url";
+    }
+  } else {
+    document.body.innerText = "no url provided";
+  }
+</script>
+</body>
+</html>
